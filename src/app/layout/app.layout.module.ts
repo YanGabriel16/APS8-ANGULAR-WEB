@@ -35,7 +35,7 @@ import { AppSidebarComponent } from './app.sidebar.component';
         RadioButtonModule,
         InputSwitchModule,
         RippleModule,
-        RouterModule
+        RouterModule,
     ],
     exports: [AppLayoutComponent]
 })
