@@ -1,4 +1,4 @@
-interface AdicionarLocalRequest {
+export class AdicionarLocalRequest {
     nome: string;
     latitude: number;
     longitude: number;

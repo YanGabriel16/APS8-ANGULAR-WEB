@@ -1,48 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Product } from '../../models/product';
 import { Local } from '../../models/local';
+import { Subscription } from 'rxjs';
+import { LocalService } from '../../service/local.service';
 
 @Component({
   selector: 'app-listar-locais',
   templateUrl: './listar-locais.component.html',
   styleUrls: ['./listar-locais.component.scss']
 })
-export class ListarLocaisComponent implements OnInit {
+export class ListarLocaisComponent implements OnInit, OnDestroy {
   locais: Local[] = [];
   first = 0;
   rows = 5;
 
+  inscricao: Subscription;
+
+  constructor(public service: LocalService) { }
+
   ngOnInit(): void {
-    this.locais.push(new Local('001', 'Sorocaba-SP', '18090-505'));
-    this.locais.push(new Local('002', 'Itaporang-SP', '18580-000'));
-    this.locais.push(new Local('003', 'Votorantim-SP', '18050-404'));
-    this.locais.push(new Local('004', 'Campinas-SP', '13010-000'));
-    this.locais.push(new Local('005', 'São Paulo-SP', '01000-000'));
-    this.locais.push(new Local('006', 'Rio de Janeiro-RJ', '20000-000'));
-    this.locais.push(new Local('007', 'Belo Horizonte-MG', '30000-000'));
-    this.locais.push(new Local('008', 'Porto Alegre-RS', '90000-000'));
-    this.locais.push(new Local('009', 'Curitiba-PR', '80000-000'));
-    this.locais.push(new Local('010', 'Recife-PE', '50000-000'));
-    this.locais.push(new Local('011', 'Salvador-BA', '40000-000'));
-    this.locais.push(new Local('012', 'Fortaleza-CE', '60000-000'));
-    this.locais.push(new Local('013', 'Brasília-DF', '70000-000'));
-    this.locais.push(new Local('014', 'Manaus-AM', '69000-000'));
-    this.locais.push(new Local('015', 'Belém-PA', '66000-000'));
-    this.locais.push(new Local('016', 'Florianópolis-SC', '88000-000'));
-    this.locais.push(new Local('017', 'Natal-RN', '59000-000'));
-    this.locais.push(new Local('018', 'Goiania-GO', '74000-000'));
-    this.locais.push(new Local('019', 'Maceió-AL', '57000-000'));
-    this.locais.push(new Local('020', 'Teresina-PI', '64000-000'));
-    this.locais.push(new Local('021', 'João Pessoa-PB', '58000-000'));
-    this.locais.push(new Local('022', 'Campo Grande-MS', '79000-000'));
-    this.locais.push(new Local('023', 'Cuiabá-MT', '78000-000'));
-    this.locais.push(new Local('024', 'Aracaju-SE', '49000-000'));
-    this.locais.push(new Local('025', 'Palmas-TO', '77000-000'));
-    this.locais.push(new Local('026', 'Boa Vista-RR', '69300-000'));
-    this.locais.push(new Local('027', 'Porto Velho-RO', '76800-000'));
-    this.locais.push(new Local('028', 'Macapá-AP', '68900-000'));
-    this.locais.push(new Local('029', 'Rio Branco-AC', '69900-000'));
-    this.locais.push(new Local('030', 'Vitória-ES', '29000-000'));
+    this.obterLocais();
+  }
+
+  obterLocais(): void {
+    this.inscricao = this.service.obterTodos().subscribe(res => {
+      if (res != null && res.length > 0) {
+        this.locais = res;        
+      }
+    });
   }
 
   pageChange(event) {
@@ -55,10 +40,106 @@ export class ListarLocaisComponent implements OnInit {
   }
 
   onClickAtualizar(): void {
-
+    this.obterLocais();
   }
 
   onClickGerenciar(entidade: Local): void {
 
+  }
+
+  getClima(status: number) {
+    switch (status) {
+      case 800:
+      case 801:
+      case 802:
+      case 803:
+      case 804:
+        return 'success';
+
+      case 200:
+      case 230:
+      case 231:
+      case 300:
+      case 301:
+      case 302:
+      case 310:
+      case 311:
+      case 312:
+      case 313:
+      case 314:
+      case 321:
+      case 500:
+      case 501:
+      case 511:
+        return 'info';
+      case 201:
+      case 211:
+      case 232:
+      case 502:
+      case 511:
+      case 520:
+      case 521:
+      case 522:
+      case 600:
+      case 601:
+      case 602:
+      case 611:
+      case 612:
+      case 613:
+      case 615:
+      case 616:
+      case 620:
+      case 621:
+      case 622:
+      case 701:
+      case 711:
+      case 721:
+      case 731:
+      case 741:
+      case 751:
+      case 761:
+      case 762:
+      case 771:
+        return 'warning';
+
+      case 202:
+      case 212:
+      case 221:
+      case 232:
+      case 503:
+      case 504:
+      case 531:
+      case 781:
+        return 'danger';
+
+      default:
+        return 'info';
+    }
+  }
+
+  getClimaIcon(status: number) {
+    var tipo = this.getClima(status);
+    switch(tipo){
+      case 'success':
+        return "pi pi-check";
+
+      case 'info':
+        return "pi pi-info-circle";
+
+      case 'warning':
+        return "pi pi-exclamation-triangle";
+
+      case 'danger':
+        return "pi pi-times";
+
+      default:
+        return "pi pi-info-circle";
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.inscricao) {
+      this.inscricao.unsubscribe();
+    }
   }
 }

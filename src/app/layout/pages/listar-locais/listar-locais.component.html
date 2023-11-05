@@ -9,7 +9,7 @@
     </div>
     <div class="col-12">
         <div class="card mb-0">
-            <p-table [value]="locais" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+            <p-table *ngIf="locais" [value]="locais" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
                 [tableStyle]="{ 'min-width': '50rem' }"
                 currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                 (onPage)="pageChange($event)" [rowsPerPageOptions]="[5, 10, 25, 50]">
@@ -26,12 +26,22 @@
                 </ng-template>
                 <ng-template pTemplate="body" let-local>
                     <tr>
-                        <td>{{ local.id }}</td>
-                        <td>{{ local.nome }}</td>
-                        <td>{{ local.cep }}</td>
-                        <td>{{ local.latitude }}</td>
-                        <td>{{ local.longitude }}</td>
-                        <td><p-tag icon="pi pi-exclamation-triangle" severity="warning" value="Em Alerta"></p-tag></td>
+                        <td>{{ local.id ?? ' -' }}</td>
+                        <td>{{ local.nome ?? ' -' }}</td>
+                        <td>{{ local.cep ?? ' -' }}</td>
+                        <td>{{ local.latitude ?? ' -' }}</td>
+                        <td>{{ local.longitude ?? ' -' }}</td>
+                        <td>
+                            <p-tag *ngIf="local.dados != null && local.dados.length > 0" 
+                                    [value]="local.dados[0].clima.list[0].weather[0].description" 
+                                    [severity]="getClima(local.dados[0].clima.list[0].weather[0].id)"
+                                    [icon]="getClimaIcon(local.dados[0].clima.list[0].weather[0].id)"></p-tag>
+
+                            <p-tag *ngIf="local.dados == null || (local.dados != null && local.dados.length == 0)" 
+                                    value="Sem dados" 
+                                    severity="warning"
+                                    icon="pi pi-exclamation-triangle"></p-tag>
+                        </td>
                         <td style="text-align: right;">
                             <div>
                                 <p-button icon="pi pi-spin pi-cog" iconPos="right" (onClick)="onClickGerenciar(local)"></p-button>

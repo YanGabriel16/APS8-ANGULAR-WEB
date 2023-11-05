@@ -1,15 +1,18 @@
+import { OpenWeatherResponse } from ".";
+import { AirQualityResponse } from "./airquality-response";
+
 export class Local {
-    id: string;
-    nome: string;
-    cep: string;
-    latitude: number;
-    longitude: number;
-  
-    constructor(id: string, nome: string, cep: string) {
-      this.id = id;
-      this.nome = nome;
-      this.cep = cep;
-      this.latitude = 49.5689654;
-      this.longitude = -23.1557995;
-    }
-  }
+  nome: string;
+  latitude: number;
+  longitude: number;
+  cep?: number;
+  cidade?: string;
+  estado?: string;
+  pais?: string;
+  dados: LocalDadosObject[];
+}
+
+export class LocalDadosObject {
+  qualidadeAr: AirQualityResponse;
+  clima: OpenWeatherResponse;
+}

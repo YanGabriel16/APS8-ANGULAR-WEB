@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
-import { Local } from "../models/local";
+import { AdicionarLocalRequest, AtualizarLocalRequest, Local } from "../models";
 
 @Injectable({
     providedIn: 'root',

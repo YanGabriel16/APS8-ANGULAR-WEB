@@ -1,3 +1,3 @@
-interface AtualizarLocalRequest {
+export class AtualizarLocalRequest {
     nome: string;
 }
