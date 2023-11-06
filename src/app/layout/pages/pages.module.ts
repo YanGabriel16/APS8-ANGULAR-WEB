@@ -6,8 +6,12 @@ import { FormsModule } from "@angular/forms";
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from "primeng/button";
 import { TagModule } from 'primeng/tag';
+import { ComponentsModule } from "../components";
+import { DialogModule } from "primeng/dialog";
+import { DialogService } from "primeng/dynamicdialog";
 
 @NgModule({
+    providers: [DialogService],
     declarations: [
         ListarLocaisComponent,
     ],
@@ -17,7 +21,9 @@ import { TagModule } from 'primeng/tag';
         ButtonModule,
         TagModule,
         FormsModule,
-        PagesRoutingModule
+        PagesRoutingModule,
+        ComponentsModule,
+        DialogModule
     ],
     exports: [ListarLocaisComponent]
 })

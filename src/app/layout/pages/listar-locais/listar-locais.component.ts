@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Product } from '../../models/product';
 import { Local } from '../../models/local';
 import { Subscription } from 'rxjs';
 import { LocalService } from '../../service/local.service';
+import { ModalAdicionarLocalComponent } from '../../components';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-listar-locais',
@@ -16,7 +17,8 @@ export class ListarLocaisComponent implements OnInit, OnDestroy {
 
   inscricao: Subscription;
 
-  constructor(public service: LocalService) { }
+  constructor(public service: LocalService,
+    private dialogService: DialogService) { }
 
   ngOnInit(): void {
     this.obterLocais();
@@ -36,7 +38,11 @@ export class ListarLocaisComponent implements OnInit, OnDestroy {
   }
 
   onClickAdicionarLocal(): void {
-
+    const ref = this.dialogService.open(ModalAdicionarLocalComponent, {
+      header: 'Adicionar Local',
+      width: '30%',
+      contentStyle: { 'max-height': '650px', overflow: 'auto' },
+    });
   }
 
   onClickAtualizar(): void {
