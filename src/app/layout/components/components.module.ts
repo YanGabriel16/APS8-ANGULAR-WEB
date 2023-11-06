@@ -8,6 +8,7 @@ import { ModalAdicionarLocalComponent } from './modal-adicionar-local/modal-adic
 import { MessageService } from 'primeng/api';
 import { MessagesModule } from 'primeng/messages';
 import { ModalAtualizarLocalComponent } from './modal-atualizar-local/modal-atualizar-local.component';
+import { ModalExcluirLocalComponent } from './modal-excluir-local/modal-excluir-local.component';
 
 @NgModule({
     providers: [
@@ -15,7 +16,8 @@ import { ModalAtualizarLocalComponent } from './modal-atualizar-local/modal-atua
     ],
     declarations: [
         ModalAdicionarLocalComponent,
-        ModalAtualizarLocalComponent
+        ModalAtualizarLocalComponent,
+        ModalExcluirLocalComponent
     ],
     imports: [
         CommonModule,
