@@ -7,13 +7,15 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ModalAdicionarLocalComponent } from './modal-adicionar-local/modal-adicionar-local.component';
 import { MessageService } from 'primeng/api';
 import { MessagesModule } from 'primeng/messages';
+import { ModalAtualizarLocalComponent } from './modal-atualizar-local/modal-atualizar-local.component';
 
 @NgModule({
     providers: [
         MessageService,
     ],
     declarations: [
-        ModalAdicionarLocalComponent
+        ModalAdicionarLocalComponent,
+        ModalAtualizarLocalComponent
     ],
     imports: [
         CommonModule,

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Local } from '../../models/local';
 import { Subscription } from 'rxjs';
 import { LocalService } from '../../service/local.service';
-import { ModalAdicionarLocalComponent } from '../../components';
+import { ModalAdicionarLocalComponent, ModalAtualizarLocalComponent } from '../../components';
 import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
@@ -59,11 +59,17 @@ export class ListarLocaisComponent implements OnInit, OnDestroy {
   }
 
   onClickEditar(entidade: Local): void {
-
+    const ref = this.dialogService.open(ModalAtualizarLocalComponent, {
+      header: 'Editar Local',
+      width: '30%',
+      contentStyle: { 'max-height': '650px', overflow: 'auto' },
+      data: {
+        entidadeId: entidade.id
+      }
+    });
   }
 
   onClickDeletar(entidade: Local): void {
-
   }
 
   getClima(status: number) {

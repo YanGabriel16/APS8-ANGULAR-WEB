@@ -7,8 +7,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-modal-adicionar-local',
-  templateUrl: './modal-adicionar-local.component.html',
-  styleUrls: ['./modal-adicionar-local.component.scss']
+  templateUrl: './modal-adicionar-local.component.html'
 })
 export class ModalAdicionarLocalComponent {
   form: FormGroup;
@@ -62,5 +61,11 @@ export class ModalAdicionarLocalComponent {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Erro ao adicionar o local.' });
         return;
       });
+  }
+
+  ngOnDestroy(): void {
+    if (this.inscricao) {
+      this.inscricao.unsubscribe();
+    }
   }
 }
