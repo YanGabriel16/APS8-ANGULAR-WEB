@@ -2,6 +2,7 @@ import { OpenWeatherResponse } from ".";
 import { AirQualityResponse } from "./airquality-response";
 
 export class Local {
+  id: number;
   nome: string;
   latitude: number;
   longitude: number;

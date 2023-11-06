@@ -3,7 +3,8 @@
         <div class="card mb-0">
             <div class="flex justify-content-between mb-0">
                 <p-button label="Adicionar Local" icon="pi pi-plus" iconPos="right" (onClick)="onClickAdicionarLocal()"></p-button>
-                <p-button icon="pi pi-refresh" iconPos="right" (onClick)="onClickAtualizar()"></p-button>
+                <p-button *ngIf="!loading" icon="pi pi-refresh" iconPos="right" (onClick)="onClickAtualizar()"></p-button>
+                <p-button *ngIf="loading" icon="pi pi-spin pi-spinner" iconPos="right" (onClick)="onClickAtualizar()"></p-button>
             </div>
         </div>
     </div>
@@ -16,12 +17,12 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th style="width:10%">Cod</th>
-                        <th style="width:25%">Local</th>
-                        <th style="width:15%">CEP</th>
+                        <th style="width:20%">Local</th>
+                        <th style="width:10%">CEP</th>
                         <th style="width:15%">Latitude</th>
                         <th style="width:15%">Longitude</th>
                         <th style="width:10%">Status</th>
-                        <th style="width:10%"></th>
+                        <th style="width:20%"></th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-local>
@@ -44,7 +45,9 @@
                         </td>
                         <td style="text-align: right;">
                             <div>
-                                <p-button icon="pi pi-spin pi-cog" iconPos="right" (onClick)="onClickGerenciar(local)"></p-button>
+                                <p-button icon="pi pi-spin pi-cog" (onClick)="onClickGerenciar(local)"></p-button>
+                                <p-button icon="pi pi-pencil" class="pr-2 pl-2" severity="warning" (onClick)="onClickEditar(local)"></p-button>
+                                <p-button icon="pi pi-trash" severity="danger" (onClick)="onClickDeletar(local)"></p-button>
                             </div>
                         </td>
                     </tr>

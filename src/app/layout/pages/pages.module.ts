@@ -23,7 +23,8 @@ import { DialogService } from "primeng/dynamicdialog";
         FormsModule,
         PagesRoutingModule,
         ComponentsModule,
-        DialogModule
+        DialogModule,
+        
     ],
     exports: [ListarLocaisComponent]
 })

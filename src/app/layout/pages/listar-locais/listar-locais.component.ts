@@ -58,6 +58,14 @@ export class ListarLocaisComponent implements OnInit, OnDestroy {
 
   }
 
+  onClickEditar(entidade: Local): void {
+
+  }
+
+  onClickDeletar(entidade: Local): void {
+
+  }
+
   getClima(status: number) {
     switch (status) {
       case 800:
