@@ -14,6 +14,7 @@ export class ListarLocaisComponent implements OnInit, OnDestroy {
   locais: Local[] = [];
   first = 0;
   rows = 5;
+  loading: boolean = false;
 
   inscricao: Subscription;
 
@@ -25,11 +26,15 @@ export class ListarLocaisComponent implements OnInit, OnDestroy {
   }
 
   obterLocais(): void {
-    this.inscricao = this.service.obterTodos().subscribe(res => {
-      if (res != null && res.length > 0) {
-        this.locais = res;        
-      }
-    });
+    this.loading = true;
+    setTimeout(() => {      
+      this.inscricao = this.service.obterTodos().subscribe(res => {
+        if (res != null && res.length > 0) {
+          this.locais = res;        
+        }
+      });
+      this.loading = false;
+    }, 1000);
   }
 
   pageChange(event) {
