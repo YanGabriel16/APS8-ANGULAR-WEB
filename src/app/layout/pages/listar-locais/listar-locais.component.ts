@@ -4,11 +4,11 @@ import { Subscription } from 'rxjs';
 import { LocalService } from '../../service/local.service';
 import { ModalAdicionarLocalComponent, ModalAtualizarLocalComponent, ModalExcluirLocalComponent } from '../../components';
 import { DialogService } from 'primeng/dynamicdialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listar-locais',
-  templateUrl: './listar-locais.component.html',
-  styleUrls: ['./listar-locais.component.scss']
+  templateUrl: './listar-locais.component.html'
 })
 export class ListarLocaisComponent implements OnInit, OnDestroy {
   locais: Local[] = [];
@@ -19,7 +19,8 @@ export class ListarLocaisComponent implements OnInit, OnDestroy {
   inscricao: Subscription;
 
   constructor(public service: LocalService,
-    private dialogService: DialogService) { }
+    private dialogService: DialogService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.obterLocais();
@@ -31,9 +32,9 @@ export class ListarLocaisComponent implements OnInit, OnDestroy {
       this.inscricao = this.service.obterTodos().subscribe(res => {
         if (res != null && res.length > 0) {
           this.locais = res;        
+          this.loading = false;
         }
       });
-      this.loading = false;
     }, 1000);
   }
 
@@ -54,8 +55,8 @@ export class ListarLocaisComponent implements OnInit, OnDestroy {
     this.obterLocais();
   }
 
-  onClickGerenciar(entidade: Local): void {
-
+  onClickDashboard(entidade: Local): void {
+    this.router.navigate([`/dashboard/${entidade.id}`]);
   }
 
   onClickEditar(entidade: Local): void {

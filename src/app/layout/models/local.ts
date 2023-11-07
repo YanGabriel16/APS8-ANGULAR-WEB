@@ -16,4 +16,5 @@ export class Local {
 export class LocalDadosObject {
   qualidadeAr: AirQualityResponse;
   clima: OpenWeatherResponse;
+  data: Date;
 }
