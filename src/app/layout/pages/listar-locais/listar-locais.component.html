@@ -4,7 +4,7 @@
             <div class="flex justify-content-between mb-0">
                 <p-button label="Adicionar Local" icon="pi pi-plus" iconPos="right" (onClick)="onClickAdicionarLocal()"></p-button>
                 <p-button *ngIf="!loading" icon="pi pi-refresh" iconPos="right" (onClick)="onClickAtualizar()"></p-button>
-                <p-button *ngIf="loading" icon="pi pi-spin pi-spinner" iconPos="right" (onClick)="onClickAtualizar()"></p-button>
+                <p-button *ngIf="loading" icon="pi pi-spin pi-spinner" iconPos="right" disabled></p-button>
             </div>
         </div>
     </div>

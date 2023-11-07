@@ -5,8 +5,7 @@
                 <p-button icon="pi pi-arrow-left" iconPos="right" (onClick)="onClickVoltar()"></p-button>
                 <p-button *ngIf="!loading" icon="pi pi-refresh" iconPos="right"
                     (onClick)="onClickAtualizar()"></p-button>
-                <p-button *ngIf="loading" icon="pi pi-spin pi-spinner" iconPos="right"
-                    (onClick)="onClickAtualizar()"></p-button>
+                <p-button *ngIf="loading" icon="pi pi-spin pi-spinner" iconPos="right" disabled></p-button>
             </div>
         </div>
     </div>
