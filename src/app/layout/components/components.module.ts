@@ -9,6 +9,8 @@ import { MessageService } from 'primeng/api';
 import { MessagesModule } from 'primeng/messages';
 import { ModalAtualizarLocalComponent } from './modal-atualizar-local/modal-atualizar-local.component';
 import { ModalExcluirLocalComponent } from './modal-excluir-local/modal-excluir-local.component';
+import { ChartModule } from 'primeng/chart';
+import { GraficoLinhaComponent } from './grafico-linha/grafico-linha.component';
 
 @NgModule({
     providers: [
@@ -17,7 +19,8 @@ import { ModalExcluirLocalComponent } from './modal-excluir-local/modal-excluir-
     declarations: [
         ModalAdicionarLocalComponent,
         ModalAtualizarLocalComponent,
-        ModalExcluirLocalComponent
+        ModalExcluirLocalComponent,
+        GraficoLinhaComponent
     ],
     imports: [
         CommonModule,
@@ -26,8 +29,11 @@ import { ModalExcluirLocalComponent } from './modal-excluir-local/modal-excluir-
         ButtonModule,
         DialogModule,
         InputTextModule,
-        MessagesModule
+        MessagesModule,
+        ChartModule
     ],
-    exports: []
+    exports: [
+        GraficoLinhaComponent
+    ]
 })
 export class ComponentsModule { }

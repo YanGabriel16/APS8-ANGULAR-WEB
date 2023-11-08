@@ -54,6 +54,9 @@
                     </ng-template>
                 </p-table>
             </p-card>
+            <p-card class="col-12 md:col-6" header="Gráfico condição">
+                <app-grafico-linha></app-grafico-linha>
+            </p-card>
             <p-card class="col-12" header="Tabela completa">
                 <p-table *ngIf="local.dados" [value]="local.dados" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
                 [tableStyle]="{ 'min-width': '50rem' }" [loading]="loading"
