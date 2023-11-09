@@ -28,13 +28,13 @@ export class ModalExcluirLocalComponent implements OnInit {
     this.inscricao = this.service.obter(this.entidadeId.toString()).subscribe(res => {
       this.entidade = res;
       this.form = this.fb.group({
-        nome: [{value: this.entidade.nome, disabled: true}],
-        latitude: [{value: this.entidade.latitude, disabled: true}],
-        longitude: [{value: this.entidade.longitude, disabled: true}],
-        cep: [{value: this.entidade.cep, disabled: true}],
-        cidade: [{value: this.entidade.cidade, disabled: true}],
-        estado: [{value: this.entidade.estado, disabled: true}],
-        pais: [{value: this.entidade.pais, disabled: true}],
+        nome: [{value: this.entidade.nome ?? " - ", disabled: true}],
+        latitude: [{value: this.entidade.latitude ?? " - ", disabled: true}],
+        longitude: [{value: this.entidade.longitude ?? " - ", disabled: true}],
+        cep: [{value: this.entidade.cep ?? " - ", disabled: true}],
+        cidade: [{value: this.entidade.cidade ?? " - ", disabled: true}],
+        estado: [{value: this.entidade.estado ?? " - ", disabled: true}],
+        pais: [{value: this.entidade.pais ?? " - ", disabled: true}],
       });
     });
   }
