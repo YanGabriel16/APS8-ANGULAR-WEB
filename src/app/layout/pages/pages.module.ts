@@ -13,6 +13,7 @@ import { CardModule } from 'primeng/card';
 import { DashboardLocalComponent } from "./dashboard-local/dashboard-local.component";
 import { MessagesModule } from 'primeng/messages';
 import { DateFormatPipe } from "../pipes";
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
     providers: [DialogService],
@@ -32,7 +33,7 @@ import { DateFormatPipe } from "../pipes";
         DialogModule,
         CardModule,
         MessagesModule,
-        
+        TooltipModule
     ],
     exports: [ListarLocaisComponent]
 })

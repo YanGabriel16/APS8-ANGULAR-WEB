@@ -55,7 +55,22 @@
                 </p-table>
             </p-card>
             <p-card class="col-12 md:col-12" header="Gravidade da condição do clima nos ultimos 15 dias">
-                <app-grafico-linha [dados]="dadosGraficoGravidade"></app-grafico-linha>
+                <ng-template pTemplate="footer">
+                    <i class="pi pi-exclamation-circle" pTooltip="Valores correspondem a média do dia. Para informações mais detalhadas olhar a tabela localizada no final da página"></i>
+                </ng-template>
+                <app-grafico-linha [mostrarTabelaGravidade]="true" [dados]="graficoGravidade"></app-grafico-linha>
+            </p-card>
+            <p-card class="col-12 md:col-6" header="Nuvens e humidade nos ultimos 15 dias">
+                <ng-template pTemplate="footer">
+                    <i class="pi pi-exclamation-circle" pTooltip="Valores correspondem a média do dia. Para informações mais detalhadas olhar a tabela localizada no final da página"></i>
+                </ng-template>
+                <app-grafico-linha [stepSize]="5" [dados]="graficoNuvensHumidade"></app-grafico-linha>
+            </p-card>
+            <p-card class="col-12 md:col-6" header="Dados do vento nos ultimos 15 dias">
+                <ng-template pTemplate="footer">
+                    <i class="pi pi-exclamation-circle" pTooltip="Valores correspondem a média do dia. Para informações mais detalhadas olhar a tabela localizada no final da página"></i>
+                </ng-template>
+                <app-grafico-linha [stepSize]="5" [dados]="graficoVento"></app-grafico-linha>
             </p-card>
             <p-card class="col-12" header="Tabela completa">
                 <p-table *ngIf="local.dados" [value]="local.dados" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"

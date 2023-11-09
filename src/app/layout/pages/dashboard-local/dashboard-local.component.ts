@@ -3,7 +3,7 @@ import { Local } from '../../models/local';
 import { Subscription } from 'rxjs';
 import { LocalService } from '../../service/local.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ChaveValor, OpenWeatherResponse } from '../../models';
+import { ChaveValor, GraficoItem, OpenWeatherResponse } from '../../models';
 import { AirQualityResponse } from '../../models/airquality-response';
 import { ClimaUtils, DataUtils } from '../../utils';
 
@@ -12,7 +12,10 @@ import { ClimaUtils, DataUtils } from '../../utils';
   templateUrl: './dashboard-local.component.html'
 })
 export class DashboardLocalComponent implements OnInit, OnDestroy {
-  dadosGraficoGravidade: number[] = [];
+  graficoGravidade: GraficoItem[] = [];
+  graficoNuvensHumidade: GraficoItem[] = [];
+  graficoVento: GraficoItem[] = [];
+
   localId: number;
   local: Local;
   clima: OpenWeatherResponse;
@@ -57,6 +60,16 @@ export class DashboardLocalComponent implements OnInit, OnDestroy {
           this.clima = res.dados[0].clima;
           this.qualidadeAr = res.dados[0].qualidadeAr;
           this.configurarTabelas();
+          
+          this.graficoGravidade = [new GraficoItem("Gravidade do Clima", "red")];
+          this.graficoNuvensHumidade = [
+            new GraficoItem("Nuvens", "blue"),
+            new GraficoItem("Humidade", "green"),
+          ];
+          this.graficoVento = [
+            new GraficoItem("Velocidade em m/s", "purple"),
+            new GraficoItem("Velocidade Max. em m/s", "pink"),
+          ];
           this.configurarValorGraficoGravidade();
         }
       });
@@ -84,18 +97,45 @@ export class DashboardLocalComponent implements OnInit, OnDestroy {
 
   configurarValorGraficoGravidade(): void {
     let ultimos15dias = DataUtils.obterUltimos15Dias();
- 
+    
     ultimos15dias.forEach(data => {
-      let climaDia = this.local.dados.filter(x => DataUtils.formatarData(x.data) == DataUtils.formatarData(data));      
+      let climaDia = this.local.dados.filter(x => DataUtils.formatarData(x.data) == DataUtils.formatarData(data));
       if (climaDia.length > 0) {
-        let valorDia = 0;
-        climaDia.forEach(item => valorDia += ClimaUtils.getClimaGravidade(item.clima.list[0].weather[0].id));
-        let valorMedia = Math.ceil(valorDia / climaDia.length);
-        this.dadosGraficoGravidade.push(valorMedia);
-      } else {
-        this.dadosGraficoGravidade.push(null);
-      }
+        let valorGravidadeDia = 0;
+        let valorNuvensDia = 0;
+        let valorHumidadeDia = 0;
+        let valorVentoVelocidadeDia = 0;
+        let valorVentoVelocidadeMaxDia = 0;
 
+        climaDia.forEach(item => {
+          valorGravidadeDia += ClimaUtils.getClimaGravidade(item.clima.list[0].weather[0].id);
+          valorNuvensDia += item.clima.list[0].clouds.all;
+          valorHumidadeDia += item.clima.list[0].main.humidity;
+          valorVentoVelocidadeDia += item.clima.list[0].wind.speed;
+          valorVentoVelocidadeMaxDia += item.clima.list[0].wind.gust;
+        });
+
+        let valorMediaGravidade = Math.ceil(valorGravidadeDia / climaDia.length);
+        this.graficoGravidade[0].valor.push(valorMediaGravidade);
+
+        let valorMediaNuvens = Math.ceil(valorNuvensDia / climaDia.length);
+        this.graficoNuvensHumidade[0].valor.push(valorMediaNuvens);
+
+        let valorMediaHumidade = Math.ceil(valorHumidadeDia / climaDia.length);
+        this.graficoNuvensHumidade[1].valor.push(valorMediaHumidade);
+
+        let valorMediaVelocidadeVento = Math.ceil(valorVentoVelocidadeDia / climaDia.length);
+        this.graficoVento[0].valor.push(valorMediaVelocidadeVento);
+
+        let valorMediaVelocidadeMaxVento = Math.ceil(valorVentoVelocidadeMaxDia / climaDia.length);
+        this.graficoVento[1].valor.push(valorMediaVelocidadeMaxVento);
+      } else {
+        this.graficoGravidade[0].valor.push(null);
+        this.graficoNuvensHumidade[0].valor.push(null);
+        this.graficoNuvensHumidade[1].valor.push(null);
+        this.graficoVento[0].valor.push(null);
+        this.graficoVento[1].valor.push(null);
+      }
     });
   }
 

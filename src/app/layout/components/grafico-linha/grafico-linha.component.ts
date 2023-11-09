@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DataUtils } from '../../utils';
-import { ChaveValor } from '../../models';
+import { ChaveValor, GraficoItem } from '../../models';
 
 @Component({
   selector: 'app-grafico-linha',
@@ -8,7 +8,9 @@ import { ChaveValor } from '../../models';
   styleUrls: ['./grafico-linha.component.scss']
 })
 export class GraficoLinhaComponent implements OnInit {
-  @Input() dados: number[];
+  @Input() dados: GraficoItem[];
+  @Input() mostrarTabelaGravidade: boolean = false;
+  @Input() stepSize: number = 1;
   data: any;
   options: any;
   documentStyle: CSSStyleDeclaration;
@@ -54,9 +56,7 @@ export class GraficoLinhaComponent implements OnInit {
           position: 'left',
           ticks: {
             color: textColorSecondary,
-            suggestedMin: 0,
-            suggestedMax: 4,
-            stepSize: 1
+            stepSize: this.stepSize
           },
           grid: {
             color: surfaceBorder
@@ -69,18 +69,20 @@ export class GraficoLinhaComponent implements OnInit {
   configurarGraficoData(): void {
     this.data = {
       labels: DataUtils.obterUltimos15DiasString(),
-      datasets: [
-        {
-          label: 'Clima',
-          fill: true,
-          borderColor: this.documentStyle.getPropertyValue('--blue-500'),
-          pointBackgroundColor: this.documentStyle.getPropertyValue('--blue-500'),
-          yAxisID: 'y',
-          tension: 0,
-          data: this.dados
-        }
-      ]
+      datasets: []
     };
+
+    this.dados.forEach(item => {
+      this.data.datasets.push({
+        label: item.nome,
+        fill: true,
+        borderColor: this.documentStyle.getPropertyValue(`--${item.cor}-500`),
+        pointBackgroundColor: this.documentStyle.getPropertyValue(`--${item.cor}-500`),
+        yAxisID: 'y',
+        tension: 0,
+        data: item.valor
+      });
+    });
   }
 
   configurarTabelas(): void {
