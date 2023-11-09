@@ -11,6 +11,8 @@ import { ModalAtualizarLocalComponent } from './modal-atualizar-local/modal-atua
 import { ModalExcluirLocalComponent } from './modal-excluir-local/modal-excluir-local.component';
 import { ChartModule } from 'primeng/chart';
 import { GraficoLinhaComponent } from './grafico-linha/grafico-linha.component';
+import { AccordionModule } from 'primeng/accordion';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
     providers: [
@@ -30,7 +32,9 @@ import { GraficoLinhaComponent } from './grafico-linha/grafico-linha.component';
         DialogModule,
         InputTextModule,
         MessagesModule,
-        ChartModule
+        ChartModule,
+        AccordionModule,
+        TableModule
     ],
     exports: [
         GraficoLinhaComponent

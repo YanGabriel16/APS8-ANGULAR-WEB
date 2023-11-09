@@ -4,3 +4,5 @@ export * from './local';
 export * from './openweather-objects';
 export * from './airquality-objects';
 export * from './openweather-response';
+export * from './chave-valor';
+
