@@ -1,0 +1,112 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card mb-0">
+            <div class=" flex justify-content-between mb-0">
+                <p-button icon="pi pi-arrow-left" iconPos="right" (onClick)="onClickVoltar()"></p-button>
+                <p-button *ngIf="!loading" icon="pi pi-refresh" iconPos="right"
+                    (onClick)="onClickAtualizar()"></p-button>
+                <p-button *ngIf="loading" icon="pi pi-spin pi-spinner" iconPos="right" disabled></p-button>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div *ngIf="local" class="grid mb-0">
+            <p-card class="col-12 md:col-6" [header]="'Local ' + local.nome">
+                <div class="flex  mb-1">
+                    <p-tag severity="warning" value="Lat: {{ clima.city.coord.lat }}" class="pl-1 pr-1"></p-tag>
+                    <p-tag severity="info" value="Lon: {{ clima.city.coord.lon }}"></p-tag>
+                </div>
+                <p-table [value]="climaTabela" [loading]="loading">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th><b>Informações do clima atual</b></th>
+                            <th></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-clima>
+                        <tr>
+                            <td><b>{{ clima.chave }}</b></td>
+                            <td>{{ clima.valor }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-card>
+            <p-card class="col-12 md:col-6" header="Clima">
+                <div class="ml-2"><b>{{ localDataDados | dateFormat }}</b></div>                
+                <p-messages [severity]="getClima(clima.list[0].weather[0].id)">
+                    <ng-template pTemplate>
+                        <img src="https://openweathermap.org/img/wn/{{ clima.list[0].weather[0].icon }}@2x.png" width="32" />
+                        <div class="ml-2"><b>{{ clima.list[0].weather[0].description | uppercase }}</b></div>
+                    </ng-template>
+                </p-messages>
+                <p-table [value]="ventoNuvensTabela" [loading]="loading">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th><b>Informações do vento/nuvens</b></th>
+                            <th></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-clima>
+                        <tr>
+                            <td><b>{{ clima.chave }}</b></td>
+                            <td>{{ clima.valor }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-card>
+            <p-card class="col-12 md:col-12" header="Gravidade da condição do clima nos ultimos 15 dias">
+                <ng-template pTemplate="footer">
+                    <i class="pi pi-exclamation-circle" pTooltip="Valores correspondem a média do dia. Para informações mais detalhadas olhar a tabela localizada no final da página"></i>
+                </ng-template>
+                <app-grafico-linha [mostrarTabelaGravidade]="true" [dados]="graficoGravidade"></app-grafico-linha>
+            </p-card>
+            <p-card class="col-12 md:col-6" header="Nuvens e humidade nos ultimos 15 dias">
+                <ng-template pTemplate="footer">
+                    <i class="pi pi-exclamation-circle" pTooltip="Valores correspondem a média do dia. Para informações mais detalhadas olhar a tabela localizada no final da página"></i>
+                </ng-template>
+                <app-grafico-linha [stepSize]="5" [dados]="graficoNuvensHumidade"></app-grafico-linha>
+            </p-card>
+            <p-card class="col-12 md:col-6" header="Dados do vento nos ultimos 15 dias">
+                <ng-template pTemplate="footer">
+                    <i class="pi pi-exclamation-circle" pTooltip="Valores correspondem a média do dia. Para informações mais detalhadas olhar a tabela localizada no final da página"></i>
+                </ng-template>
+                <app-grafico-linha [stepSize]="5" [dados]="graficoVento"></app-grafico-linha>
+            </p-card>
+            <p-card class="col-12" header="Tabela completa">
+                <p-table *ngIf="local.dados" [value]="local.dados" [paginator]="true" [rows]="5" [showCurrentPageReport]="true"
+                [tableStyle]="{ 'min-width': '50rem' }" [loading]="loading"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                (onPage)="pageChange($event)" [rowsPerPageOptions]="[5, 10, 25, 50]">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Data</th>
+                        <th>Temperatura</th>
+                        <th>Temp min</th>
+                        <th>Temp max</th>
+                        <th>Humidade</th>
+                        <th>Pressão atmosférica</th>
+                        <th>Nuvens</th>
+                        <th>Velocidade vento</th>
+                        <th>Direção do vento</th>
+                        <th>Velocidade max rajadas de vento</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-dados>
+                    <tr>
+                        <td>{{ dados.data | date:'dd/MM/yyyy HH:mm:ss':'pt-BR' }}</td>
+                        <td>{{ dados.clima.list[0].main.temp - 273.15 | number:'1.2-2' }}°C</td>
+                        <td>{{ dados.clima.list[0].main.temp_min - 273.15 | number:'1.2-2' }}°C</td>
+                        <td>{{ dados.clima.list[0].main.temp_max - 273.15 | number:'1.2-2' }}°C</td>
+                        <td>{{ dados.clima.list[0].main.humidity | number:'1.2-2' }} %</td>
+                        <td>{{ dados.clima.list[0].main.pressure | number:'1.2-2' }} hPa</td>
+                        <td>{{ dados.clima.list[0].clouds.all | number:'1.2-2' }}%</td>
+                        <td>{{ dados.clima.list[0].wind.speed | number:'1.2-2' }} m/s</td>
+                        <td>{{ dados.clima.list[0].wind.deg | number:'1.2-2' }}°</td>
+                        <td>{{ dados.clima.list[0].wind.gust | number:'1.2-2' }} m/s</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            </p-card>
+        </div>
+    </div>
+</div>

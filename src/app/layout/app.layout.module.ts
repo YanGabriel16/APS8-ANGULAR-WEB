@@ -15,8 +15,10 @@ import { AppTopBarComponent } from './app.topbar.component';
 import { AppFooterComponent } from './app.footer.component';
 import { AppLayoutComponent } from "./app.layout.component";
 import { AppSidebarComponent } from './app.sidebar.component';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
+    providers: [MessageService],
     declarations: [
         AppMenuitemComponent,
         AppTopBarComponent,

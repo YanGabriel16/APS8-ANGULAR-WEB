@@ -1,0 +1,39 @@
+<div class="p-fluid">
+    <form *ngIf="entidade" [formGroup]="form" (ngSubmit)="onClickAtualizar()">
+      <div class="p-field mb-2">
+        <p-messages></p-messages>
+      </div>
+      <div class="p-field mb-2">
+        <label for="nome">Nome</label>
+        <input id="nome" type="text" pInputText formControlName="nome" />
+      </div>
+      <div class="p-field mb-2">
+        <label for="latitude">Latitude</label>
+        <input id="latitude" type="text" pInputText formControlName="latitude" />
+      </div>
+      <div class="p-field mb-2">
+        <label for="longitude">Longitude</label>
+        <input id="longitude" type="text" pInputText formControlName="longitude" />
+      </div>
+      <div class="p-field mb-2">
+        <label for="cep">CEP</label>
+        <input id="cep" type="text" pInputText formControlName="cep" />
+      </div>
+      <div class="p-field mb-2">
+        <label for="cidade">Cidade</label>
+        <input id="cidade" type="text" pInputText formControlName="cidade" />
+      </div>
+      <div class="p-field mb-2">
+        <label for="estado">Estado</label>
+        <input id="estado" type="text" pInputText formControlName="estado" />
+      </div>
+      <div class="p-field mb-2">
+        <label for="pais">Pais</label>
+        <input id="pais" type="text" pInputText formControlName="pais" />
+      </div>
+      <div class="p-field mb-2">
+        <button *ngIf="loading == false" type="submit" pButton label="Atualizar"></button>
+        <button *ngIf="loading" type="submit" pButton label="Atualizar" icon="pi pi-spin pi-spinner" disabled="true"></button>
+      </div>
+    </form>
+  </div>
