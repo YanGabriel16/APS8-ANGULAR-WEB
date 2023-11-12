@@ -29,12 +29,12 @@ export class ModalAtualizarLocalComponent implements OnInit {
       this.entidade = res;
       this.form = this.fb.group({
         nome: [this.entidade.nome, Validators.required],
-        latitude: [{value: this.entidade.latitude, disabled: true}],
-        longitude: [{value: this.entidade.longitude, disabled: true}],
-        cep: [{value: this.entidade.cep, disabled: true}],
-        cidade: [{value: this.entidade.cidade, disabled: true}],
-        estado: [{value: this.entidade.estado, disabled: true}],
-        pais: [{value: this.entidade.pais, disabled: true}],
+        latitude: [{value: this.entidade.latitude ?? " - ", disabled: true}],
+        longitude: [{value: this.entidade.longitude ?? " - ", disabled: true}],
+        cep: [{value: this.entidade.cep ?? " - ", disabled: true}],
+        cidade: [{value: this.entidade.cidade ?? " - ", disabled: true}],
+        estado: [{value: this.entidade.estado ?? " - ", disabled: true}],
+        pais: [{value: this.entidade.pais ?? " - ", disabled: true}],
       });
     });
   }

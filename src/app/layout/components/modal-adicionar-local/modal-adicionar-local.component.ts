@@ -63,6 +63,23 @@ export class ModalAdicionarLocalComponent {
       });
   }
 
+  onClickObterEndereco(): void {
+    this.inscricao  = this.service.obterEnderecoPorCep(this.form.get('cep').value).subscribe(res => {
+      if(res == null) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'CEP não encontrado.' });
+        return;
+      }
+      this.form.get('latitude').setValue(res.latitude);
+      this.form.get('longitude').setValue(res.longitude);
+      this.form.get('cidade').setValue(res.localidade);
+      this.form.get('estado').setValue(res.uf);
+      this.form.get('pais').setValue("Brasil");
+    }, error => {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'CEP não encontrado.' });
+      return;
+    });
+  }
+
   ngOnDestroy(): void {
     if (this.inscricao) {
       this.inscricao.unsubscribe();
