@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs';
 import { LocalService } from '../../service/local.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChaveValor, GraficoItem, OpenWeatherResponse } from '../../models';
-import { AirQualityResponse } from '../../models/airquality-response';
 import { ClimaUtils, DataUtils } from '../../utils';
 
 @Component({
@@ -19,7 +18,6 @@ export class DashboardLocalComponent implements OnInit, OnDestroy {
   localId: number;
   local: Local;
   clima: OpenWeatherResponse;
-  qualidadeAr: AirQualityResponse;
   first = 0;
   rows = 5;
   loading: boolean = false;
@@ -58,7 +56,6 @@ export class DashboardLocalComponent implements OnInit, OnDestroy {
         if (res != null) {
           this.local = res;
           this.clima = res.dados[0].clima;
-          this.qualidadeAr = res.dados[0].qualidadeAr;
           this.configurarTabelas();
           
           this.graficoGravidade = [new GraficoItem("Gravidade do Clima", "red")];
