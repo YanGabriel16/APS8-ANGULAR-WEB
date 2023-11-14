@@ -30,11 +30,9 @@ export class ClimaUtils {
       case 321:
       case 500:
       case 501:
-      case 511:
         return 'info';
       case 201:
       case 211:
-      case 232:
       case 502:
       case 511:
       case 520:
@@ -100,11 +98,9 @@ export class ClimaUtils {
       case 321:
       case 500:
       case 501:
-      case 511:
         return 2;
       case 201:
       case 211:
-      case 232:
       case 502:
       case 511:
       case 520:

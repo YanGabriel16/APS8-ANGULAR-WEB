@@ -1,5 +1,4 @@
 import { OpenWeatherResponse } from ".";
-import { AirQualityResponse } from "./airquality-response";
 
 export class Local {
   id: number;
@@ -14,7 +13,6 @@ export class Local {
 }
 
 export class LocalDadosObject {
-  qualidadeAr: AirQualityResponse;
   clima: OpenWeatherResponse;
   data: Date;
 }

@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
-import { AdicionarLocalRequest, AtualizarLocalRequest, Local } from "../models";
+import { AdicionarLocalRequest, AtualizarLocalRequest, Endereco, Local } from "../models";
 
 @Injectable({
     providedIn: 'root',
@@ -31,6 +31,11 @@ export class LocalService {
 
     obter(id: string): Observable<Local> {
         return this.http.get<Local>(`${this.url}/local/${id}`)
+            .pipe(map(o => o));
+    }
+
+    obterEnderecoPorCep(cep: number): Observable<Endereco> {
+        return this.http.get<Endereco>(`${this.url}/consulta/cep/${cep}`)
             .pipe(map(o => o));
     }
 
