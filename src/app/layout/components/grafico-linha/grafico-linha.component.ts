@@ -87,7 +87,7 @@ export class GraficoLinhaComponent implements OnInit {
 
   configurarTabelas(): void {
     this.informacoes = [
-      new ChaveValor("1", "Sem gravidade aparente (clima limpo/nublado)"),
+      new ChaveValor("1", "Sem gravidade aparente (clima limpo)"),
       new ChaveValor("2", "Gravidade baixa (chuvas fracas para medianas)"),
       new ChaveValor("3", "Gravidade mediana/alerta (chuvas medianas para fortes)"),
       new ChaveValor("4", "Gravidade alta/perigo (chuvas pesadas, tempestade, tornados...)")

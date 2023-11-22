@@ -60,11 +60,11 @@
                 </ng-template>
                 <app-grafico-linha [mostrarTabelaGravidade]="true" [dados]="graficoGravidade"></app-grafico-linha>
             </p-card>
-            <p-card class="col-12 md:col-6" header="Nuvens e humidade nos ultimos 15 dias">
+            <p-card class="col-12 md:col-6" header="Nuvens e umidade nos ultimos 15 dias">
                 <ng-template pTemplate="footer">
                     <i class="pi pi-exclamation-circle" pTooltip="Valores correspondem a média do dia. Para informações mais detalhadas olhar a tabela localizada no final da página"></i>
                 </ng-template>
-                <app-grafico-linha [stepSize]="5" [dados]="graficoNuvensHumidade"></app-grafico-linha>
+                <app-grafico-linha [stepSize]="5" [dados]="graficoNuvensUmidade"></app-grafico-linha>
             </p-card>
             <p-card class="col-12 md:col-6" header="Dados do vento nos ultimos 15 dias">
                 <ng-template pTemplate="footer">
@@ -83,7 +83,7 @@
                         <th>Temperatura</th>
                         <th>Temp min</th>
                         <th>Temp max</th>
-                        <th>Humidade</th>
+                        <th>Umidade</th>
                         <th>Pressão atmosférica</th>
                         <th>Nuvens</th>
                         <th>Velocidade vento</th>

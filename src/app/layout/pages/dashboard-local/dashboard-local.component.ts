@@ -12,7 +12,7 @@ import { ClimaUtils, DataUtils } from '../../utils';
 })
 export class DashboardLocalComponent implements OnInit, OnDestroy {
   graficoGravidade: GraficoItem[] = [];
-  graficoNuvensHumidade: GraficoItem[] = [];
+  graficoNuvensUmidade: GraficoItem[] = [];
   graficoVento: GraficoItem[] = [];
 
   localId: number;
@@ -59,9 +59,9 @@ export class DashboardLocalComponent implements OnInit, OnDestroy {
           this.configurarTabelas();
           
           this.graficoGravidade = [new GraficoItem("Gravidade do Clima", "red")];
-          this.graficoNuvensHumidade = [
+          this.graficoNuvensUmidade = [
             new GraficoItem("Nuvens", "blue"),
-            new GraficoItem("Humidade", "green"),
+            new GraficoItem("Umidade", "green"),
           ];
           this.graficoVento = [
             new GraficoItem("Velocidade em m/s", "purple"),
@@ -79,7 +79,7 @@ export class DashboardLocalComponent implements OnInit, OnDestroy {
       new ChaveValor("Temperatura:", `${(this.clima.list[0].main.temp - 273.15).toFixed(2)}°C`),
       new ChaveValor("Temp. min:", `${(this.clima.list[0].main.temp_min - 273.15).toFixed(2)}°C`),
       new ChaveValor("Temp. max:", `${(this.clima.list[0].main.temp_max - 273.15).toFixed(2)}°C`),
-      new ChaveValor("Humidade:", `${this.clima.list[0].main.humidity.toFixed(2)}%`),
+      new ChaveValor("Umidade:", `${this.clima.list[0].main.humidity.toFixed(2)}%`),
       new ChaveValor("Pressão atmosférica:", `${this.clima.list[0].main.pressure.toFixed(2)} hPa`),
       new ChaveValor("Nivel do mar:", `${this.clima.list[0].main.sea_level.toFixed(2)}`),
     ];
@@ -100,14 +100,14 @@ export class DashboardLocalComponent implements OnInit, OnDestroy {
       if (climaDia.length > 0) {
         let valorGravidadeDia = 0;
         let valorNuvensDia = 0;
-        let valorHumidadeDia = 0;
+        let valorUmidadeDia = 0;
         let valorVentoVelocidadeDia = 0;
         let valorVentoVelocidadeMaxDia = 0;
 
         climaDia.forEach(item => {
           valorGravidadeDia += ClimaUtils.getClimaGravidade(item.clima.list[0].weather[0].id);
           valorNuvensDia += item.clima.list[0].clouds.all;
-          valorHumidadeDia += item.clima.list[0].main.humidity;
+          valorUmidadeDia += item.clima.list[0].main.humidity;
           valorVentoVelocidadeDia += item.clima.list[0].wind.speed;
           valorVentoVelocidadeMaxDia += item.clima.list[0].wind.gust;
         });
@@ -116,10 +116,10 @@ export class DashboardLocalComponent implements OnInit, OnDestroy {
         this.graficoGravidade[0].valor.push(valorMediaGravidade);
 
         let valorMediaNuvens = Math.ceil(valorNuvensDia / climaDia.length);
-        this.graficoNuvensHumidade[0].valor.push(valorMediaNuvens);
+        this.graficoNuvensUmidade[0].valor.push(valorMediaNuvens);
 
-        let valorMediaHumidade = Math.ceil(valorHumidadeDia / climaDia.length);
-        this.graficoNuvensHumidade[1].valor.push(valorMediaHumidade);
+        let valorMediaUmidade = Math.ceil(valorUmidadeDia / climaDia.length);
+        this.graficoNuvensUmidade[1].valor.push(valorMediaUmidade);
 
         let valorMediaVelocidadeVento = Math.ceil(valorVentoVelocidadeDia / climaDia.length);
         this.graficoVento[0].valor.push(valorMediaVelocidadeVento);
@@ -128,8 +128,8 @@ export class DashboardLocalComponent implements OnInit, OnDestroy {
         this.graficoVento[1].valor.push(valorMediaVelocidadeMaxVento);
       } else {
         this.graficoGravidade[0].valor.push(null);
-        this.graficoNuvensHumidade[0].valor.push(null);
-        this.graficoNuvensHumidade[1].valor.push(null);
+        this.graficoNuvensUmidade[0].valor.push(null);
+        this.graficoNuvensUmidade[1].valor.push(null);
         this.graficoVento[0].valor.push(null);
         this.graficoVento[1].valor.push(null);
       }
